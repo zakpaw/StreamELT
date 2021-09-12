@@ -1,4 +1,4 @@
-requests
 json
 boto3
+pprint
 tweepy
