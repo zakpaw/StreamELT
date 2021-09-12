@@ -1,5 +1,5 @@
 from diagrams import Diagram, Cluster
-from diagrams.aws.analytics import KinesisDataStreams, KinesisDataFirehose,Glue
+from diagrams.aws.analytics import KinesisDataStreams, KinesisDataFirehose
 from diagrams.aws.storage import S3, SimpleStorageServiceS3Bucket, SimpleStorageServiceS3Bucket
 from diagrams.aws.compute import ECS
 from diagrams.aws.ml import Sagemaker
@@ -22,9 +22,9 @@ with Diagram(""):
         with Cluster(""):
             s3staging = S3("S3")
             raw_bucket = SimpleStorageServiceS3Bucket("Raw Tweets")
-            raw_to_standardzied = Glue("Standardize")
+            raw_to_standardzied = KinesisDataFirehose("Standardize")
             standardized_bucket = SimpleStorageServiceS3Bucket("Standardized Tweets")
-            standardized_to_cleansed = Glue("Cleanse")
+            standardized_to_cleansed = KinesisDataFirehose("Cleanse")
             cleansed_bucket = SimpleStorageServiceS3Bucket("Cleansed Tweets")
     with Cluster("Warehousing"):
         snowflake = Snowflake("DW")
