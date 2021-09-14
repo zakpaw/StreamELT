@@ -14,18 +14,18 @@ with Diagram(""):
             ecs = ECS("")
             with Cluster(""):
                 docker = Docker("containarized")
-                get_tweets = Python("Stream COVID19 Tweets from Twitter API")
+                get_tweets = Python("Stream COVID19 Tweets" + "\n" + "from Twitter API")
         # elb_tweets = aws.network.ELB("Load Balance streaming data")
         tweets_stream = KinesisDataStreams("Stream tweets")
     with Cluster("Data Lake"):
         tweets_firehose = KinesisDataFirehose("Transform to JSON's")
         with Cluster(""):
             s3staging = S3("S3")
-            raw_bucket = SimpleStorageServiceS3Bucket("Raw Tweets")
+            raw_bucket = SimpleStorageServiceS3Bucket("Raw")
             raw_to_standardzied = KinesisDataFirehose("Standardize")
-            standardized_bucket = SimpleStorageServiceS3Bucket("Standardized Tweets")
+            standardized_bucket = SimpleStorageServiceS3Bucket("Standardized")
             standardized_to_cleansed = KinesisDataFirehose("Cleanse")
-            cleansed_bucket = SimpleStorageServiceS3Bucket("Cleansed Tweets")
+            cleansed_bucket = SimpleStorageServiceS3Bucket("Cleansed")
     with Cluster("Warehousing"):
         snowflake = Snowflake("DW")
     sagemaker = Sagemaker("Sentiment analysis")
